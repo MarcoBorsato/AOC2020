@@ -23,4 +23,4 @@ def findsum3(entries: list, total: int) -> int:
 if __name__ == '__main__':
     input = open('inputday1.txt').read().splitlines()
 
-    print(findsum1)
+    print(findsum(input, 2020))

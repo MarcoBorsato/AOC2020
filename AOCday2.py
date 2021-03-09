@@ -1,33 +1,38 @@
 import re
 
+dataType = (int, int, str, str)
 
-def password(data):
-    input = data.readlines()
-    count = 0
 
-    for i in input:
-        myCount = 0
-        x = re.findall('[0-9a-zA-z]+', i)
-        min, max, test, str = x[0], x[1], x[2], x[3]
-        times = str.count(test)
+def convertData(line):
+    found = re.findall(r'(\d+)-(\d+) (\w): (.*)', line)[0]
+    return int(found[0]), int(found[1]), found[2], found[3]
 
-        if int(min) <= times <= int(max):
-            myCount += 1
 
-        if myCount == 1:
-            count += 1
+def readInput(input):
+    data = open('inputday2.txt').readlines()
+    return [convertData(line) for line in data]
 
-    return count
 
-def password2(data):
-    input = data.readlines()
-    count = 0
+def password1(data: dataType) -> bool:
+    return data[3].count(data[2]) in range(data[0], data[1] + 1)
 
-    for i in input:
-        x = re.findall('[0-9a-zA-z]+', i)
-        min, max, test, str = int(x[0])-1, int(x[1])-1, x[2], x[3]
 
-        if (str[min] == test) != (str[max] == test):
-            count += 1
+def password2(data: dataType) -> bool:
+    a = bool(data[3][data[0] - 1] == data[2])
+    b = bool(data[3][data[1] - 1] == data[2])
+    return a != b
 
-    return count
+
+def count(data):
+    count1, count2 = 0, 0
+    for d in readInput(data):
+        if password1(d):
+            count1 += 1
+        if password2(d):
+            count2 += 1
+    return count1, count2
+
+
+if __name__ == '__main__':
+    inputday2 = readInput(open('inputday2.txt'))
+    print(count(inputday2))
