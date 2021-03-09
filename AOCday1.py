@@ -1,28 +1,26 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import time
 
 
-def findsum(numlist):
-    numlist_int = [int(x) for x in numlist]
+def findsum(entries: list, total: int) -> int:
+    entries = [int(x) for x in entries]
 
-    for i in numlist_int:
-        for j in numlist_int:
-            if int(i) == int(j):
-                continue
-            else:
-                if int(i) + int(j) == 2020:
-                    return int(i)*int(j)
+    for i in entries:
+        search = total - i
+        if search in entries:
+            return i * search
 
-def findsum3(numlist):
-    numlist_int = [int(x) for x in numlist]
 
-    for i in numlist_int:
-        for j in numlist_int:
-            for k in numlist_int:
-                if i == j or i == k or j == k:
-                    continue
-                else:
-                    if (i + j + k) == 2020:
-                        return i*j*k
+def findsum3(entries: list, total: int) -> int:
+    entries = [int(x) for x in entries]
+
+    for i in entries:
+        for j in entries:
+            search = total - i - j
+            if search in entries:
+                return i * j * search
+
+
+if __name__ == '__main__':
+    input = open('inputday1.txt').read().splitlines()
+
+    print(findsum1)
